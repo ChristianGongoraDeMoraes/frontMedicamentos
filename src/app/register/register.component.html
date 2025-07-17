@@ -1,0 +1,13 @@
+<div class="page">
+    <div class="container">
+        <div class="box">
+            <h1>Register</h1>
+            <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Name"/>
+            <input type="text" id="email" [(ngModel)]="email" name="email" placeholder="email"/>
+            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Password"/>
+            <button class="registerBtn"(click)="register()">
+                Register
+            </button>
+        </div>
+    </div>
+</div>
