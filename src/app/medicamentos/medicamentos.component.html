@@ -1,1 +1,78 @@
-<p>medicamentos works!</p>
+<div class="page">
+    <div class="container">
+        <div class="medicamentos">
+            <h1>
+                Medicamentos
+            </h1>
+            <button class="adicionarMed" (click)="swapRemedioBox()">
+                <mat-icon>
+                    add
+                </mat-icon>
+            </button>
+           
+            <div class="medsBox">
+                <div class="card" *ngFor="let med of medicamentos; let i=index" (click)="getHorarios(med.nome)">
+                    <p>
+                        {{ med.nome }}
+                    </p>
+                    <p>
+                        {{ med.dosagem }}
+                    </p>
+                    <p class="instrucoes">
+                        {{ med.instrucoes }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="boxAddMed" *ngIf="showBoxAddMed">
+        <div class="boxAddMedBox">
+            <button class="closeNewRemedioBox" (click)="swapRemedioBox()">
+                <mat-icon>
+                    close
+                </mat-icon>
+            </button>
+            <h1>Cadastrar Remedio</h1>
+            <input class="nome inputNewRemedio" id="nome" [(ngModel)]="addNewnome" name="nome" placeholder="nome">
+            <input class="dosagem inputNewRemedio" id="dosagem" [(ngModel)]="addNewdosagem" name="dosagem" placeholder="dosagem">
+            <input class="instrucoes inputNewRemedio" id="instrucoes" [(ngModel)]="addNewinstrucoes" name="instrucoes" placeholder="instrucoes">
+            <button class="newRemedioBtn" (click)="saveNewRemedio()">
+                Save
+                <mat-icon>
+                    save
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="boxHorarios" *ngIf="showHorarios">
+        <div class="boxHorariosBox">
+            <button class="closeHorarioBox" (click)="swapHorariosBox()"> 
+                 <mat-icon>
+                    close
+                </mat-icon>
+            </button>
+            <div class="h1horarios">
+                <H1>Horarios</H1>
+                <button class="addHorarioBtn" (click)="newHorario()">
+                    <mat-icon>
+                        add
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="horarios">
+                <div class="cardHorario" *ngFor="let horario of horarios; let i=index">
+                    <p class="indexHorario">
+                        {{ horarios.indexOf(horario) + 1 }}.
+                    </p>
+                    <p>
+                        Dia: {{ formatarDataDia(horario.hora) }}
+                    </p>
+                    <p>
+                        Hora: {{ formatarDataHora(horario.hora) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

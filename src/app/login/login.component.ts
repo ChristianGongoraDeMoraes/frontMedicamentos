@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpAccountService } from '../service/http-account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent {
   password: string = ""
 
   httpAccount = inject(HttpAccountService);
+  router = inject(Router);
 
   login(){
     this.httpAccount.login({
@@ -20,7 +22,9 @@ export class LoginComponent {
       password: this.password}).subscribe({
         next: (data: any) => {
           localStorage.setItem('token', data.token);
-          alert(data.token)
+          
+
+          this.router.navigate(['medicamentos']);
 
           //redirect
         },

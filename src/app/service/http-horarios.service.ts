@@ -28,8 +28,10 @@ export class HttpHorariosService {
   getHorarios(nomeMedicamento: string){
     let urlX: string = this.url +`/api/Horario`;
     const headers = this.getHeaders();
+
     const params = new HttpParams()
       .set('nomeMedicamento', nomeMedicamento);
-    return this.http.post(urlX, { headers, params });
+
+    return this.http.get(urlX, { headers , params });
   }
 }
