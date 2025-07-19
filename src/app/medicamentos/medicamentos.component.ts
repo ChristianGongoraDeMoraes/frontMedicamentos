@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { HttpHorariosService } from '../service/http-horarios.service';
+import { ToastService } from '../service/toast/toast.service';
+import { Router } from '@angular/router';
 
 type Medicamento = {
   nome: string,
@@ -25,6 +27,7 @@ type Horario = {
 export class MedicamentosComponent implements OnInit{
   httpMedicamento = inject(HttpMedicamentoService);
   httpHorarios = inject(HttpHorariosService);
+  router = inject(Router);
   
   medAtual = "";
 
@@ -40,11 +43,21 @@ export class MedicamentosComponent implements OnInit{
   addNewdosagem: string = "";
   addNewinstrucoes: string = "";
 
-  ngOnInit(): void {
-    this.getMedicamentos();
-    
+  toastService = inject(ToastService);
+  showToast(message: string, type: boolean) {
+    if(type == false) this.toastService.add(message, 3000, 'error');
+    if(type == true) this.toastService.add(message, 3000, 'success');
   }
 
+
+  ngOnInit(): void {
+    this.getMedicamentos();
+  }
+
+  logout(){
+    localStorage.setItem("token", "")
+    this.router.navigate([""]);
+  }
 
   getMedicamentos(){
     this.medicamentos = [];
@@ -56,7 +69,7 @@ export class MedicamentosComponent implements OnInit{
           
         },
         error: (error: any) =>{
-          alert("error");
+          this.showToast("Error ao Buscar Remedios", false);
         }
     });
   }
@@ -84,9 +97,11 @@ export class MedicamentosComponent implements OnInit{
         this.getMedicamentos();
         this.swapRemedioBox();
         this.addNewnome = this.addNewdosagem = this.addNewinstrucoes = "";
+
+        this.showToast("Remedio Adicionado com Sucesso", true);
       },
       error: (error: any) =>{
-        alert("error");
+        this.showToast("Error ao Remedio Adicionar Remedio", false);
       }
     });
   }
@@ -103,7 +118,7 @@ export class MedicamentosComponent implements OnInit{
         this.swapHorariosBox()
       },
       error: (error: any) =>{
-        alert("error");
+        this.showToast("Error ao buscar Horarios", false);
       }
     });
   }
@@ -113,9 +128,11 @@ export class MedicamentosComponent implements OnInit{
       next: (data: any) => {
         this.getHorarios(this.medAtual)
         this.swapHorariosBox()
+
+        this.showToast("Horario Adicionado com Sucesso", true);
       },
       error: (error: any) =>{
-        alert("error");
+        this.showToast("Error ao Salvar Horario", false);
       }
     });
   }
@@ -124,9 +141,11 @@ export class MedicamentosComponent implements OnInit{
     this.httpMedicamento.deleteMedicamento(nome).subscribe({
       next: (data: any) => {
         this.getMedicamentos()
+
+        this.showToast("Medicamento Deletado com Sucesso", true);
       },
       error: (error: any) =>{
-        alert("error");
+        this.showToast("Error ao Deletar Remedio", false);
       }
     });
   }
@@ -145,9 +164,11 @@ export class MedicamentosComponent implements OnInit{
       next: (data: any) => {
         this.getHorarios(this.medAtual)
         this.swapHorariosBox()
+
+        this.showToast("Horario Deletado com Sucesso", true);
       },
       error: (error: any) =>{
-        alert("error");
+        this.showToast("Error ao Deletar Horario", false);
       }
     });
   }

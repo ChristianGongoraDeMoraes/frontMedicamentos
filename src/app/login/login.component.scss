@@ -1,6 +1,40 @@
 .page{
     width: 100%;
     min-height: 100vh;
+    position: relative;
+
+    .toast{
+        .cardFalse{
+             padding: 20px 40px;
+            background-color: rgb(255, 255, 255);
+            border-left: 5px solid rgb(255, 0, 0);
+            border-bottom: 1px solid black;
+
+            border-radius: 10px;
+            
+            font-size: large;
+            font-weight: 700;
+
+        }
+        .cardTrue{
+            padding: 20px 40px;
+            background-color: rgb(255, 255, 255);
+            border-left: 5px solid green;
+            border-bottom: 1px solid black;
+
+            border-radius: 10px;
+        
+            font-size: large;
+            font-weight: 700;
+        }
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        z-index: 9999;
+
+    }
+
 
     .container{
         margin: 0 auto;

@@ -3,6 +3,38 @@
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+    .toast{
+        .cardFalse{
+             padding: 20px 40px;
+            background-color: rgb(255, 255, 255);
+            border-left: 5px solid rgb(255, 0, 0);
+            border-bottom: 1px solid black;
+
+            border-radius: 10px;
+            
+            font-size: large;
+            font-weight: 700;
+
+        }
+        .cardTrue{
+            padding: 20px 40px;
+            background-color: rgb(255, 255, 255);
+            border-left: 5px solid green;
+            border-bottom: 1px solid black;
+
+            border-radius: 10px;
+        
+            font-size: large;
+            font-weight: 700;
+        }
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        z-index: 9999;
+
+    }
+
     .boxAddMed{
         position: absolute;
         background-color: rgba(0, 0, 0, 0.288);
@@ -314,6 +346,29 @@
                 }
                 .switchDelete:hover{
                     background-color: rgb(167, 88, 88);
+                    cursor: pointer;
+                }
+                .LogoutBtn{
+                    border: none;
+
+                    height: 50px;
+                    width: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: rgb(0, 0, 0);
+                    border-radius: 100%;
+                    color: white;
+                    //margin-left: 5px;
+
+                    position: absolute;
+
+                    right: 20px;
+                    top: 15px;
+                }
+                .LogoutBtn:hover{
+                    background-color: rgb(255, 255, 255);
+                    color: black;
                     cursor: pointer;
                 }
                  .adicionarMed{

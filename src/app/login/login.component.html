@@ -9,4 +9,16 @@
             </button>
         </div>
     </div>
+
+    <div class="toast" *ngIf="toastService.toasts.length > 0">
+        <div *ngFor="let toast of toastService.toasts; let i = index">
+            <div class="cardFalse" *ngIf="toast.type == 'error'">
+                {{ toast.message }}
+            </div>
+            <div class="cardTrue" *ngIf="toast.type == 'success'">
+                {{ toast.message }}
+            </div>
+        </div>
+    </div>
+    
 </div>
