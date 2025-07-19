@@ -33,6 +33,8 @@ export class MedicamentosComponent implements OnInit{
 
   showBoxAddMed = false;
   showHorarios = false;
+  showDeleteMed = false;
+  showDeleteHorario = false;
 
   addNewnome: string = "";
   addNewdosagem: string = "";
@@ -64,6 +66,12 @@ export class MedicamentosComponent implements OnInit{
   }
   swapHorariosBox(){
     this.showHorarios = !this.showHorarios;
+  }
+  swapDeleteMed(){
+    this.showDeleteMed = !this.showDeleteMed;
+  }
+  swapDeleteHorario(){
+    this.showDeleteHorario = !this.showDeleteHorario;
   }
 
   saveNewRemedio(){
@@ -102,6 +110,38 @@ export class MedicamentosComponent implements OnInit{
 
   newHorario(){
     this.httpHorarios.saveHorario({nomeMedicamento: this.medAtual}).subscribe({
+      next: (data: any) => {
+        this.getHorarios(this.medAtual)
+        this.swapHorariosBox()
+      },
+      error: (error: any) =>{
+        alert("error");
+      }
+    });
+  }
+
+  deleteMedReq(nome: string){
+    this.httpMedicamento.deleteMedicamento(nome).subscribe({
+      next: (data: any) => {
+        this.getMedicamentos()
+      },
+      error: (error: any) =>{
+        alert("error");
+      }
+    });
+  }
+
+  getInstrucoes(){
+    for(let med of this.medicamentos){
+      if(med.nome == this.medAtual){
+        return med.instrucoes;
+      }
+    }
+    return ""
+  }
+
+  deleteHorario(hora: string){
+    this.httpHorarios.deleteHorario(this.medAtual, hora).subscribe({
       next: (data: any) => {
         this.getHorarios(this.medAtual)
         this.swapHorariosBox()

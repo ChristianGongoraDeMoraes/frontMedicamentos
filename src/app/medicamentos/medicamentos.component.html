@@ -1,26 +1,42 @@
 <div class="page">
     <div class="container">
         <div class="medicamentos">
-            <h1>
-                Medicamentos
-            </h1>
-            <button class="adicionarMed" (click)="swapRemedioBox()">
-                <mat-icon>
+            <div class="h1deletebtn">
+                <h1>
+                    Medicamentos
+                </h1>
+                <button class="adicionarMed" (click)="swapRemedioBox()">
+                    <mat-icon>
                     add
-                </mat-icon>
-            </button>
+                    </mat-icon>
+                 </button>
+                <button class="switchDelete"  (click)="swapDeleteMed()">
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                </button>
+            </div>
+
            
             <div class="medsBox">
-                <div class="card" *ngFor="let med of medicamentos; let i=index" (click)="getHorarios(med.nome)">
-                    <p>
-                        {{ med.nome }}
-                    </p>
-                    <p>
-                        {{ med.dosagem }}
-                    </p>
-                    <p class="instrucoes">
-                        {{ med.instrucoes }}
-                    </p>
+                <div class="forCards" *ngFor="let med of medicamentos; let i=index">
+                     <div class="deleteMedBtn" *ngIf="showDeleteMed" (click)="deleteMedReq(med.nome)" appStopPropagation>
+                        <mat-icon>
+                            delete
+                         </mat-icon>
+                     </div>
+                     <div class="card" (click)="getHorarios(med.nome)">
+                        <p>
+                            {{ med.nome }}
+                        </p>
+                        <p>
+                            {{ med.dosagem }}
+                        </p>
+                        <p class="instrucoes">
+                            {{ med.instrucoes }}
+                        </p>
+
+                     </div>
                 </div>
             </div>
         </div>
@@ -46,6 +62,13 @@
     </div>
     <div class="boxHorarios" *ngIf="showHorarios">
         <div class="boxHorariosBox">
+            <div class="medTituloHorarios">
+                <h1>{{ medAtual }}</h1>
+            </div>
+            <div class="instrucoesHorario">
+                <h2> Instruções :</h2>
+                <h3> {{ getInstrucoes() }} </h3>
+            </div>
             <button class="closeHorarioBox" (click)="swapHorariosBox()"> 
                  <mat-icon>
                     close
@@ -58,11 +81,21 @@
                         add
                     </mat-icon>
                 </button>
+                <button class="deleteHorario" (click)="swapDeleteHorario()">
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                </button>
             </div>
             <div class="horarios">
                 <div class="cardHorario" *ngFor="let horario of horarios; let i=index">
+                    <div class="deleteHorarioIf" *ngIf="showDeleteHorario" (click)="deleteHorario(horario.hora)">
+                        <mat-icon>
+                        delete
+                        </mat-icon>
+                    </div>
                     <p class="indexHorario">
-                        {{ horarios.indexOf(horario) + 1 }}.
+                        {{ horarios.length - i }}.
                     </p>
                     <p>
                         Dia: {{ formatarDataDia(horario.hora) }}

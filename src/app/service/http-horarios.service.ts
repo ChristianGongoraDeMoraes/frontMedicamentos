@@ -34,4 +34,11 @@ export class HttpHorariosService {
 
     return this.http.get(urlX, { headers , params });
   }
+
+  deleteHorario(medNome: string, dateTime: string){
+    let urlX: string = this.url +`/horario/${medNome}/${dateTime}`;
+    const headers = this.getHeaders();
+
+    return this.http.delete(urlX, {headers});
+  }
 }

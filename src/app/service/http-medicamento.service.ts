@@ -33,4 +33,10 @@ export class HttpMedicamentoService {
     const headers = this.getHeaders();
     return this.http.get(urlX, { headers });
   }
+
+  deleteMedicamento(nome: string){
+    let urlX: string = this.url +`/${nome}`;
+    const headers = this.getHeaders();
+    return this.http.delete(urlX, { headers });
+  }
 }
