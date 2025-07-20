@@ -17,6 +17,9 @@ export class RegisterComponent {
   name: string = ""
   email: string = ""
   password: string = ""
+  password2:string = ""
+
+  failRegister: string[] = [];
 
   isLoading = false;
 
@@ -31,6 +34,17 @@ export class RegisterComponent {
 
 
   register(){
+    this.failRegister = [];
+    if (this.password.length < 12) this.failRegister.push("Senha deve ter acima de 12 caracteres")
+    if(!/[^\w\s]/.test(this.password)) this.failRegister.push("Senha deve conter ao menos um digito especial");
+    if(!/[A-Z]/.test(this.password)) this.failRegister.push("Senha deve conter ao menos uma letra maiuscula");
+    if(!/\d/.test(this.password)) this.failRegister.push("Senha deve conter ao menos um digito numerico");
+    if(this.password != this.password2) this.failRegister.push("Senhas não coincidem");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) this.failRegister.push("Email invalido")
+
+
+    if(this.failRegister.length > 0) return
+
     this.isLoading = true;
     this.httpAccount.register({
       username: this.name,
