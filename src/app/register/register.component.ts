@@ -4,6 +4,7 @@ import { HttpAccountService } from '../service/http-account.service';
 import { Router } from '@angular/router';
 import { ToastService } from '../service/toast/toast.service';
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class RegisterComponent {
   email: string = ""
   password: string = ""
 
+  isLoading = false;
+
   httpAccount = inject(HttpAccountService);
   router = inject(Router);
 
@@ -28,10 +31,13 @@ export class RegisterComponent {
 
 
   register(){
+    this.isLoading = true;
     this.httpAccount.register({
       username: this.name,
       email: this.email,
-      password: this.password}).subscribe({
+      password: this.password})
+      .pipe(finalize(()=>this.isLoading = false))
+      .subscribe({
         next: (data: any) => {
           this.showToast("Registrado com sucesso", true);
           this.router.navigate([""])

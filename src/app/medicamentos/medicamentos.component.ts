@@ -6,6 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { HttpHorariosService } from '../service/http-horarios.service';
 import { ToastService } from '../service/toast/toast.service';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 type Medicamento = {
   nome: string,
@@ -43,6 +44,8 @@ export class MedicamentosComponent implements OnInit{
   addNewdosagem: string = "";
   addNewinstrucoes: string = "";
 
+  isLoading = false;
+
   toastService = inject(ToastService);
   showToast(message: string, type: boolean) {
     if(type == false) this.toastService.add(message, 3000, 'error');
@@ -61,7 +64,10 @@ export class MedicamentosComponent implements OnInit{
 
   getMedicamentos(){
     this.medicamentos = [];
-    this.httpMedicamento.getMedicamento().subscribe({
+    this.isLoading = true;
+    this.httpMedicamento.getMedicamento()
+    .pipe(finalize(()=>this.isLoading = false))
+    .subscribe({
         next: (data: any) => {    
           for(let med of data){
             this.medicamentos.push(med)
@@ -92,7 +98,10 @@ export class MedicamentosComponent implements OnInit{
     if(!this.addNewdosagem) return;
     if(!this.addNewinstrucoes ) return;
 
-    this.httpMedicamento.saveMedicamento({nome: this.addNewnome, dosagem: this.addNewdosagem, instrucoes: this.addNewinstrucoes}).subscribe({
+    this.isLoading = true;
+    this.httpMedicamento.saveMedicamento({nome: this.addNewnome, dosagem: this.addNewdosagem, instrucoes: this.addNewinstrucoes})
+    .pipe(finalize(()=>this.isLoading = false))
+    .subscribe({
       next: (data: any) => {    
         this.getMedicamentos();
         this.swapRemedioBox();
@@ -108,7 +117,10 @@ export class MedicamentosComponent implements OnInit{
 
   getHorarios(nome: string){
     this.horarios = [];
-    this.httpHorarios.getHorarios(nome).subscribe({
+    this.isLoading = true;
+    this.httpHorarios.getHorarios(nome)
+    .pipe(finalize(()=>this.isLoading = false))
+    .subscribe({
       next: (data: any) => {    
         for(let h of data){
           this.horarios.push(h)
@@ -124,7 +136,10 @@ export class MedicamentosComponent implements OnInit{
   }
 
   newHorario(){
-    this.httpHorarios.saveHorario({nomeMedicamento: this.medAtual}).subscribe({
+    this.isLoading = true;
+    this.httpHorarios.saveHorario({nomeMedicamento: this.medAtual})
+    .pipe(finalize(()=>this.isLoading = false))
+    .subscribe({
       next: (data: any) => {
         this.getHorarios(this.medAtual)
         this.swapHorariosBox()
@@ -138,7 +153,10 @@ export class MedicamentosComponent implements OnInit{
   }
 
   deleteMedReq(nome: string){
-    this.httpMedicamento.deleteMedicamento(nome).subscribe({
+    this.isLoading = true;
+    this.httpMedicamento.deleteMedicamento(nome)
+    .pipe(finalize(()=>this.isLoading = false))
+    .subscribe({
       next: (data: any) => {
         this.getMedicamentos()
 
@@ -160,7 +178,10 @@ export class MedicamentosComponent implements OnInit{
   }
 
   deleteHorario(hora: string){
-    this.httpHorarios.deleteHorario(this.medAtual, hora).subscribe({
+    this.isLoading = true;
+    this.httpHorarios.deleteHorario(this.medAtual, hora)
+    .pipe(finalize(()=>this.isLoading = false))
+    .subscribe({
       next: (data: any) => {
         this.getHorarios(this.medAtual)
         this.swapHorariosBox()

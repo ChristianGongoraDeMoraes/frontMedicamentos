@@ -4,6 +4,7 @@ import { HttpAccountService } from '../service/http-account.service';
 import { Router } from '@angular/router';
 import { ToastService } from '../service/toast/toast.service';
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ export class LoginComponent {
   name: string = ""
   password: string = ""
 
+  isLoading = false;
+
   httpAccount = inject(HttpAccountService);
   router = inject(Router);
 
@@ -25,9 +28,13 @@ export class LoginComponent {
   }
 
   login(){
+    this.isLoading = true;
     this.httpAccount.login({
       username: this.name,
-      password: this.password}).subscribe({
+      password: this.password})
+      .pipe(
+        finalize(() => this.isLoading = false))
+      .subscribe({
         next: (data: any) => {
           localStorage.setItem('token', data.token);
           this.showToast("Logado com sucesso", true);
