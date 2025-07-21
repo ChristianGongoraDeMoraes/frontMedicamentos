@@ -4,9 +4,17 @@
             <h1>Login</h1>
             <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Name"/>
             <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Password"/>
+            <div class="credenciaisInvalidas" *ngIf="credenciaisInvalidas">
+                <p>
+                    Credenciais Invalidas*
+                </p>
+            </div>
             <button class="LoginBtn"(click)="login()">
                 Login
             </button>
+            <p class="register" routerLink="/register">
+                register
+            </p>
         </div>
     </div>
 

@@ -104,6 +104,20 @@
             .LoginBtn:hover{
                 background-color: gray;
             }
+            .register{
+                margin: 0;
+            }
+            .register:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .credenciaisInvalidas{
+                p{
+                    color: red;
+                    padding: 3px;
+                    margin: 0;
+                }
+            }
         }
     }
 }

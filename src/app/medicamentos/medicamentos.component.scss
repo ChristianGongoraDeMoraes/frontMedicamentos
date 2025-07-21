@@ -439,19 +439,26 @@
                 }
                 .deleteMedBtn{
                         position: absolute;
-                        top: 0;
-                        right: 0;
+                        top: 5px;
+                        right: 5px;
                         
                         color: rgb(0, 0, 0);
-                        background-color: rgb(124, 0, 0);
+                        background-color: rgb(85, 0, 0);
 
-                        padding: 5px;
-                        border-radius: 3px;
+                        //padding: 5px;
+                        height: 30px;
+                        width: 30px;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        border-radius: 30px;
                         z-index: 2;
 
                         pointer-events:visible;
                     }
-                    .deleteMedBtn{
+                    .deleteMedBtn:hover{
                         cursor: pointer;
                         background-color: red;
                     }

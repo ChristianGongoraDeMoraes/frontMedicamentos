@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpAccountService } from '../service/http-account.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../service/toast/toast.service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -17,6 +17,8 @@ export class LoginComponent {
   password: string = ""
 
   isLoading = false;
+
+  credenciaisInvalidas = false;
 
   httpAccount = inject(HttpAccountService);
   router = inject(Router);
@@ -44,6 +46,7 @@ export class LoginComponent {
           //redirect
         },
         error: (error: any) =>{
+          this.credenciaisInvalidas = true;
           this.showToast("Erro ao Logar", false);
         }
     });

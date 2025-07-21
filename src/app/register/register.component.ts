@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpAccountService } from '../service/http-account.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../service/toast/toast.service';
 import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
@@ -9,7 +9,7 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

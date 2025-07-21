@@ -84,6 +84,7 @@
             border-radius: 30px;
             border: 2px solid black;
 
+            padding: 30px;
             .cardFail{
                 color: red;
                 font-size: medium;
@@ -109,6 +110,14 @@
             }
             .registerBtn:hover{
                 background-color: gray;
+            }
+
+             .login{
+                margin: 0;
+            }
+            .login:hover{
+                text-decoration: underline;
+                cursor: pointer;
             }
         }
     }
